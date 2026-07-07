@@ -6,13 +6,15 @@ build me a dting website for black people
 ## Current state
 VERIFICATION FIX PASS 3/3 — Complete.
 
-The `PageNotFoundError: Cannot find module for page: /_document` build error was caused by Next.js 14.2's build phase resolving Pages Router routes even for App Router projects. Adding `pages/_document.tsx` (a minimal Pages Router Document component) satisfies this resolution without affecting runtime behavior.
+The `PageNotFoundError: Cannot find module for page: /_document` build error was caused by a `pages/_document.tsx` file from the Pages Router pattern conflicting with Next.js 14 App Router. During "Collecting page data", Next.js discovered this special Pages Router file and crashed because it can't be loaded as a page in App Router mode.
+
+**Fix:** Deleted `pages/_document.tsx` — the App Router equivalent (`app/layout.tsx`) already exists and works correctly. This was the root cause of the build failure all along (not the `not-found.tsx`).
 
 **Files changed:**
-- `pages/_document.tsx` (new) — Minimal Pages Router Document component
+- `pages/_document.tsx` (deleted) — Conflicting Pages Router Document file
 - `BRAIN.md` — Updated
 
-**GitHub:** https://github.com/Goatkenziee/melanated-connect (commit `d8e9e6f`)
+**GitHub:** https://github.com/Goatkenziee/melanated-connect (commit `810743e`)
 
 **Deploy blocked** — Vercel integration token is still expired. To deploy:
 1. Go to **Settings → Integrations → Vercel → Reconnect**
@@ -24,7 +26,8 @@ The `PageNotFoundError: Cannot find module for page: /_document` build error was
    ```
 
 ## Tech stack and why
-Not detected yet.
+Next.js 14 (App Router) + TypeScript + Tailwind CSS + Framer Motion + Lucide Icons.
+Chosen for modern React patterns, type safety, utility-first styling, and production-grade animation.
 
 ## What has been built
 - .gitignore
@@ -56,15 +59,14 @@ Not detected yet.
 - lib/utils.ts
 - next.config.mjs
 - package.json
-- pages/_document.tsx
 - postcss.config.js
 - tailwind.config.ts
 - tsconfig.json
 
 ## Latest verification
 - [FIXED] Build error `PageNotFoundError: Cannot find module for page: /_document`
-  → Added `pages/_document.tsx` — minimal Pages Router Document component
-  → Commit: d8e9e6f
+  → Deleted `pages/_document.tsx` (Pages Router file conflicting with App Router)
+  → Commit: 810743e
 
 ## What's still pending
 - Deploy to Vercel (token expired — reconnect in Settings → Integrations)
