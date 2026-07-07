@@ -4,10 +4,10 @@
 build me a dting website for black people
 
 ## Current state
-Repo exists. Let me push all the workspace files: --- _Run note: hit the tool-call limit. The above is the agent's last response before stopping. Send a follow-up to continue._
+**PASS 2/3: Build fix** — Deleted `app/not-found.tsx` which triggered a Next.js 14.2.15 regression where `not-found.tsx` causes the build to crash during "Collecting page data" with `Cannot find module for page: /_document`. Next.js handles `/_not-found` natively — no custom file needed. Build now completes cleanly (4 static pages generated). **Files changed:** - `app/not-found.tsx` — deleted (1 file) - `BRAIN.md` — updated. **Verification:** `npm run build` exits clean with all pages generated. **GitHub:** Pushed to `Goatkenziee/melanated-connect` — commit `aad327c`.
 
 ## Tech stack and why
-Not detected yet.
+Next.js 14.2.15 + Tailwind CSS + TypeScript — production-grade React framework with App Router, chosen for SSR/static generation and rich ecosystem.
 
 ## What has been built
 - .gitignore
@@ -15,7 +15,6 @@ Not detected yet.
 - PROJECT_STATE.json
 - app/globals.css
 - app/layout.tsx
-- app/not-found.tsx
 - app/page.tsx
 - components/layout/app-shell.tsx
 - components/layout/container.tsx
@@ -44,14 +43,18 @@ Not detected yet.
 - tsconfig.json
 
 ## Latest verification
-- [1] ✅ FIXED: Removed `.next/types/**/*.ts` from tsconfig.json `include` — those are Next.js build artifacts that don't exist until `next build` runs, so they caused TS6053 errors in pre-build typechecks. `tsc --noEmit` now passes clean (exit 0).
+- [✓] `npm run build` passes cleanly (4/4 static pages generated, no errors)
+- [✓] `npx tsc --noEmit` passes (zero errors)
+- [✗] Deploy — Vercel integration token needs reconnecting
 
 ## What's still pending
-- Push workspace to GitHub repo and deploy to Vercel.
+- Reconnect Vercel integration to deploy live (Settings → Integrations → Vercel → Reconnect)
+- Build actual dating features (profiles, matching, messaging)
+- Add database + auth
 
 ## User preferences detected
 - Keep changes focused, modern, and production-ready.
 
 ## Run notes
-- Last updated: 2026-07-07T11:32:24.651Z
+- Last updated: 2026-07-07T11:35:42.557Z
 - Autonomous iteration: 0
